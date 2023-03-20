@@ -19,12 +19,23 @@ steps:
     versionSpec: '$(python.version)'
   displayName: 'Use Python $(python.version)'
 
+- task: PublishTestResults@2
+  inputs:
+   testResultsFormat: 'Junit'
+   testResultsFiles: '**/*.xml'
+
 - script: |
     python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
+    pip install pytest selenium
+  displayName: 'Install python PKG requirements'
+
+
+- script: |
+    pytest tests --doctest-modules --junitxml=junit/test-results.xml
+  displayName: 'Execute tests'
 
 - script: |
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+
