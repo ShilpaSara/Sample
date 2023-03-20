@@ -9,6 +9,7 @@ search_bar = driver.find_element("name", "q")
 search_bar
 search_bar.clear()
 search_bar.send_keys("getting started with python")
+print("Success code")
 search_bar.send_keys(Keys.RETURN)
 print(driver.current_url)
 driver.close()
